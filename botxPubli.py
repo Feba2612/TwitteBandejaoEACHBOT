@@ -4,15 +4,15 @@ from getTextBeta import *
 
 from google.cloud import secretmanager
 
-project_id = os.environ["GCP_PROJECT"] 
+# project_id = os.environ["GCP_PROJECT"] 
+project_id = "NomeDoProjeto"
 client = secretmanager.SecretManagerServiceClient() 
-Z
 def get_secrets(secret_request): 
     name = f"projects/{project_id}/secrets/{secret_request}/versions/latest"
     response = client.access_secret_version(name=name) 
     return response.payload.data.decode("UTF-8")
 
-def twetarCardapio(event, context):
+def twetarCardapio():
     api_key = get_secrets("twitter_consumer_key")
     api_secret = get_secrets("twitter_consumer_secret")
     bearer_token = get_secrets("btoken")
@@ -27,3 +27,4 @@ def twetarCardapio(event, context):
     testt = imprimir_cardapio_bandejao()
     clientt.create_tweet(text=testt)
     return 'OK'
+
